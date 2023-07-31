@@ -4,9 +4,7 @@ from pathlib import Path
 import environ
 from django.utils.translation import gettext_lazy as _
 
-env = environ.Env(
-    DEBUG=(bool, False)
-)
+env = environ.Env(DEBUG=(bool, False))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
