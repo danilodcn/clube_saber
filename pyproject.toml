@@ -12,6 +12,12 @@ django = "^4.2.3"
 django-extensions = "^3.2.3"
 gunicorn = "^21.2.0"
 django-environ = "^0.10.0"
+psycopg2 = "^2.9.6"
+pillow = "^10.0.0"
+django-storages = "^1.13.2"
+boto3 = "^1.28.15"
+django-mathfilters = "^1.0.0"
+fontawesomefree = "^6.4.0"
 
 
 [tool.poetry.group.dev.dependencies]
