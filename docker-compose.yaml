@@ -1,0 +1,20 @@
+version: "3.0"
+
+services:
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "127.0.0.1:4510-4530:4510-4530"
+      - "127.0.0.1:4566:4566"
+      - "127.0.0.1:4571:4571"
+    volumes:
+      - "./.docker/localstack:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      - SERVICES=s3 # we only need s3 bucket
+      - DEBUG=1 
+      - DATA_DIR=/tmp/localstack # we need this to make our volume work
+      - DEFAULT_REGION=sa-east-1
+      - AWS_DEFAULT_REGION=sa-east-1
+      - AWS_ACCESS_KEY_ID=key
+      - AWS_SECRET_ACCESS_KEY=secret
