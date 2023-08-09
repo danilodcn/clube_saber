@@ -67,6 +67,22 @@ six = "*"
 test = ["astroid", "pytest"]
 
 [[package]]
+name = "awscli-local"
+version = "0.21"
+description = "Thin wrapper around the \"aws\" command line interface for use with LocalStack"
+optional = false
+python-versions = "*"
+files = [
+    {file = "awscli-local-0.21.tar.gz", hash = "sha256:99aad6b8e0cfefb2093453866cbcd24e710d7e6a1523cac0969ed0f64442ea7c"},
+]
+
+[package.dependencies]
+localstack-client = "*"
+
+[package.extras]
+ver1 = ["awscli"]
+
+[[package]]
 name = "backcall"
 version = "0.2.0"
 description = "Specifications for callback functions passed in to an API"
@@ -633,6 +649,39 @@ files = [
 ]
 
 [[package]]
+name = "lark"
+version = "1.1.7"
+description = "a modern parsing library"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "lark-1.1.7-py3-none-any.whl", hash = "sha256:9e5dc5bbf93fa1840083707285262514a0ef8a6613874af7ea1cec60468d6e92"},
+    {file = "lark-1.1.7.tar.gz", hash = "sha256:be7437bf1f37ab08b355f29ff2571d77d777113d0a8c4352b0c513dced6c5a1e"},
+]
+
+[package.extras]
+atomic-cache = ["atomicwrites"]
+interegular = ["interegular (>=0.3.1,<0.4.0)"]
+nearley = ["js2py"]
+regex = ["regex"]
+
+[[package]]
+name = "localstack-client"
+version = "2.3"
+description = "A lightweight Python client for LocalStack."
+optional = false
+python-versions = "*"
+files = [
+    {file = "localstack-client-2.3.tar.gz", hash = "sha256:377ed05e7854eb476dc73b0ab992c433c683bd1026aa84755eaa29f7561757c1"},
+]
+
+[package.dependencies]
+boto3 = "*"
+
+[package.extras]
+test = ["black", "coverage", "flake8", "isort", "localstack", "pytest"]
+
+[[package]]
 name = "matplotlib-inline"
 version = "0.1.6"
 description = "Inline Matplotlib backend for Jupyter"
@@ -1016,6 +1065,20 @@ files = [
 six = ">=1.5"
 
 [[package]]
+name = "python-hcl2"
+version = "4.3.2"
+description = "A parser for HCL2"
+optional = false
+python-versions = ">=3.7.0"
+files = [
+    {file = "python-hcl2-4.3.2.tar.gz", hash = "sha256:7122661438be27ccd8b8f3db71969d8ef2cce3b3cf183e88f8172575e7405a65"},
+    {file = "python_hcl2-4.3.2-py3-none-any.whl", hash = "sha256:e958fe52ca0519e3500eb621caa16be6be9c27870cbcd1879d8c538fb85067ea"},
+]
+
+[package.dependencies]
+lark = ">=1,<2"
+
+[[package]]
 name = "ruff"
 version = "0.0.280"
 description = "An extremely fast Python linter, written in Rust."
@@ -1133,6 +1196,23 @@ psutil = ">=5.7.2,<6.0.0"
 tomli = {version = ">=2.0.1,<3.0.0", markers = "python_version >= \"3.7\" and python_version < \"4.0\""}
 
 [[package]]
+name = "terraform-local"
+version = "0.12"
+description = "Thin wrapper script to run Terraform against LocalStack"
+optional = false
+python-versions = "*"
+files = [
+    {file = "terraform-local-0.12.tar.gz", hash = "sha256:08d52bb53c63301548032ad5722fbfbe05e93a26f3a76d4bb644485d22a672b6"},
+]
+
+[package.dependencies]
+localstack-client = "*"
+python-hcl2 = "*"
+
+[package.extras]
+test = ["flake8", "localstack", "pytest"]
+
+[[package]]
 name = "tomli"
 version = "2.0.1"
 description = "A lil' TOML parser"
@@ -1210,4 +1290,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "c971a94ba1791fba0d1de12693c87d721fd2f50bfcffd96412decb24bd569685"
+content-hash = "cd2faf2744615c0c8e9396bcb4d1dd54e3113c179080b60b0036280bfc00683a"
