@@ -1,5 +1,6 @@
 {% load mathfilters %}
 {% load static %}
+{% load humanize %}
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -16,6 +17,8 @@
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
     <!--Replace with your tailwind.css once created-->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="{{ page.site.logo.url }}" />
 
     <script src="{% static 'fontawesomefree/js/fontawesome.js' %}"></script>
     <script src="{% static 'fontawesomefree/js/solid.js' %}"></script>
@@ -125,7 +128,7 @@
       {% elif section.type == 2 %}
       <div class="container mx-auto flex flex-wrap pt-4 pb-12">
         <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-          Title
+          {{ section.title }}
         </h2>
         {% include 'sections/text_section.html' with contents=section.page_contents.all %}
       </div>
@@ -155,8 +158,10 @@
             </div>
             <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
               <div class="w-full pt-6 text-4xl font-bold text-center">
-                R$ {{ page.price }}
-                <span class="text-base">/ em até {{page.number_of_installments}}x R$ {{page.price|div:page.number_of_installments|floatformat:2}}</span>
+                R$ {{ page.price|intcomma }}
+                {% with  price=page.price|div:page.number_of_installments|floatformat:2%}
+                <span class="text-base">/ em até {{page.number_of_installments}}x R$ {{ price|intcomma }}</span>
+                {% endwith %}
               </div>
               <div class="flex items-center justify-center">
                 <a 

@@ -23,8 +23,7 @@ def landing_page(request: HttpRequest, slug: str) -> HttpResponse:
             message = 'Em breve entraremos em contato'
 
         messages.error(request=request, message=message)
-    message = 'ola mundo'
-    messages.error(request=request, message=message)
+
     return render(
         request=request, template_name='index.html', context={'page': page}
     )

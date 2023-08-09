@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.humanize',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mathfilters',
@@ -66,9 +67,9 @@ TEMPLATES = [
 ]
 
 
-AWS_STORAGE_BUCKET_NAME = 'test'
+AWS_STORAGE_BUCKET_NAME = 'clube-saber'
 AWS_S3_URL_PROTOCOL = 'http://'
-AWS_S3_CUSTOM_DOMAIN = 'test.s3.sa-east-1.localhost.localstack.cloud:4566'
+AWS_S3_CUSTOM_DOMAIN = 'clube-saber.s3.sa-east-1.localhost.localstack.cloud:4566'
 AWS_S3_ENDPOINT_URL = 'http://localhost:4566'
 
 AWS_ACCESS_KEY_ID = 'key'
