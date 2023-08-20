@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Site(models.Model):
-    logo = models.ImageField('Imagem', null=False, blank=False)
+    logo = models.ImageField('Imagem', null=False, blank=False, upload_to="upload/site")
     name = models.CharField('Nome', max_length=250)
 
     def __str__(self) -> str:
@@ -42,8 +42,8 @@ class Page(models.Model):
     number_of_installments = models.PositiveSmallIntegerField(
         'Número de parcelas', null=True
     )
-    image = models.ImageField('Imagem', null=True, blank=True)
-    stamp = models.ImageField('Imagem do selo', null=True, blank=True)
+    image = models.ImageField('Imagem', null=True, blank=True, upload_to="upload/page")
+    stamp = models.ImageField('Imagem do selo', null=True, blank=True, upload_to="upload/page")
 
     created_at = models.DateTimeField('Data de Criação', auto_now_add=True)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)
@@ -96,6 +96,9 @@ class PageSection(models.Model):
     class Meta:
         ordering = ('order', 'id')
 
+    def __str__(self) -> str:
+        return f'{self.title} ({self.get_type_display()})'
+
 
 class PageSectionContent(models.Model):
     section = models.ForeignKey(
@@ -107,7 +110,7 @@ class PageSectionContent(models.Model):
     )
     title = models.CharField('Título', max_length=500, null=True, blank=True)
     content = models.TextField('Conteúdo', null=True, blank=True)
-    image = models.ImageField('Imagem', null=True, blank=True)
+    image = models.ImageField('Imagem', null=True, blank=True, upload_to="upload/page/section")
 
     action = models.CharField(
         'Botão de ação', max_length=500, null=True, blank=True
