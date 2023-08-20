@@ -67,10 +67,10 @@ TEMPLATES = [
 ]
 
 
-AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
 
-AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
@@ -81,8 +81,8 @@ STORAGES = {
     'default': {'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage'},
     'staticfiles': {
         'BACKEND': 'storages.backends.s3boto3.S3StaticStorage',
-        "OPTIONS": {
-            "location": STATICFILES_LOCATION,
+        'OPTIONS': {
+            'location': STATICFILES_LOCATION,
         },
     },
 }
