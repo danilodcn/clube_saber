@@ -67,21 +67,27 @@ TEMPLATES = [
 ]
 
 
-AWS_STORAGE_BUCKET_NAME = 'clube-saber'
-AWS_S3_URL_PROTOCOL = 'http://'
-AWS_S3_CUSTOM_DOMAIN = 'clube-saber.s3.sa-east-1.localhost.localstack.cloud:4566'
-AWS_S3_ENDPOINT_URL = 'http://localhost:4566'
+AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
 
-AWS_ACCESS_KEY_ID = 'key'
-AWS_SECRET_ACCESS_KEY = 'secret'
+AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
+
+STATICFILES_LOCATION = 'static'
 
 STORAGES = {
     'default': {'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage'},
-    'staticfiles': {'BACKEND': 'storages.backends.s3boto3.S3StaticStorage'},
+    'staticfiles': {
+        'BACKEND': 'storages.backends.s3boto3.S3StaticStorage',
+        "OPTIONS": {
+            "location": STATICFILES_LOCATION,
+        },
+    },
 }
 
 WSGI_APPLICATION = 'clube_saber.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
