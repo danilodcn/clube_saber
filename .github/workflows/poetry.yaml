@@ -1,0 +1,28 @@
+on:
+  workflow_call:
+    inputs:
+      install-options:
+        required: false
+        type: string
+        default: ''
+      python-version:
+        required: false
+        type: string
+        default: '3.10'
+
+jobs:
+  install-poetry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install and configure poetry
+        run: |
+          pipx install poetry
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ inputs.python-version }}
+          cache: poetry
+
+      - name: Install the project dependencies
+        run: poetry install ${{ inputs.install-options }}
