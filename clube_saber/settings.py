@@ -15,7 +15,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY: str = env('SECRET_KEY')
+SECRET_KEY: str = env('SECRET_KEY', default='secret_key')  # type: ignore
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
@@ -67,13 +67,13 @@ TEMPLATES = [
 ]
 
 
-AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME', default='bucket')  # type: ignore # noqa
 
-AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID', default='aws_access_key')  # type: ignore # noqa
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY', default='aws_secret_key')  # type: ignore # noqa
 
 AWS_QUERYSTRING_AUTH = False
-AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
+AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN', default='')  # type: ignore # noqa
 
 STATICFILES_LOCATION = 'static'
 
@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'clube_saber.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db(),
+    'default': env.db(default='sqlite:///:memory:'),  # type: ignore
 }
 
 
