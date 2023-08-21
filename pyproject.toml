@@ -29,6 +29,7 @@ taskipy = "^1.12.0"
 blue = "^0.9.1"
 ruff = "^0.0.280"
 httpx = "^0.24.1"
+pytest-django = "^4.5.2"
 
 
 [tool.poetry.group.infra.dependencies]
@@ -49,6 +50,7 @@ line_length = 79
 
 [tool.pytest.ini_options]
 pythonpath = "."
+python_files = "tests.py test_*.py *_tests.py"
 
 [tool.blue]
 extend-exclude = '(migrations/)'
@@ -58,5 +60,5 @@ lint = 'ruff . && blue --check . --diff'
 format = 'blue .  && isort .'
 run = 'gunicorn clube_saber:wsgi'
 dev = 'python manage.py runserver'
-test = 'DJANGO_SETTINGS_MODULE=tests.settings pytest --disable-warnings -s -x --cov=clube_saber -vv'
+test = 'pytest --disable-warnings -s -x --cov=clube_saber -vv --ds=tests.settings'
 post_test = 'coverage html'
