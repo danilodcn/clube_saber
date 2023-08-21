@@ -9,6 +9,14 @@ on:
         required: false
         type: string
         default: '3.10'
+      lint:
+        required: false
+        type: boolean
+        default: true
+      test:
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   install-poetry:
@@ -26,3 +34,13 @@ jobs:
 
       - name: Install the project dependencies
         run: poetry install ${{ inputs.install-options }}
+
+      - name: Lint
+        if: ${{ inputs.lint }}
+        run: |
+          poetry run task lint
+      
+      - name: Test
+        if: ${{ inputs.test }}
+        run: |
+          poetry run task test
