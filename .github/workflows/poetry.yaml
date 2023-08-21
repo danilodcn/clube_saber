@@ -1,4 +1,4 @@
-name: CI
+name: Poetry CI
 
 on:
   workflow_call:
@@ -28,6 +28,14 @@ jobs:
       - name: Install and configure poetry
         run: |
           pipx install poetry
+          poetry config virtualenvs.in-project true
+
+      - name: Cache packages
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: ${{ runner.os }}-build-${{ inputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+      
       - name: Install Python
         uses: actions/setup-python@v4
         with:
