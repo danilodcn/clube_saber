@@ -58,7 +58,7 @@ extend-exclude = '(migrations/)'
 [tool.taskipy.tasks]
 lint = 'ruff . && blue --check . --diff'
 format = 'blue .  && isort .'
-run = 'gunicorn clube_saber:wsgi'
+run = 'gunicorn clube_saber.wsgi'
 dev = 'python manage.py runserver'
 test = 'pytest --disable-warnings -s -x --cov=clube_saber -vv --ds=tests.settings'
 post_test = 'coverage html'

@@ -1,0 +1,12 @@
+infra
+.github
+.ruff_cache
+.tests
+.vscode
+.docker
+.pytest_cache
+.venv
+
+*.db
+.coverage
+htmlcov
