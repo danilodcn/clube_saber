@@ -1,3 +1,5 @@
+volume
+
 # Terraform lockfile
 .terraform.lock.hcl
 
