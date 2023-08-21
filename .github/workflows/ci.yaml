@@ -1,11 +1,15 @@
-name: "CI"
+name: "CI/CD"
 
 on:
   push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
 
 jobs:
-  ci:
+  tests:
     uses: danilodcn/clube_saber/.github/workflows/poetry.yaml@main
+
+  build:
+    uses: danilodcn/clube_saber/.github/workflows/docker.yaml@main
+    with:
+      image-name: daconnas/clube_saber
+    secrets: inherit
