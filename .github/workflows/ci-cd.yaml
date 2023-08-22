@@ -9,7 +9,7 @@ jobs:
     uses: danilodcn/clube_saber/.github/workflows/poetry.yaml@main
 
   build:
-    uses: danilodcn/clube_saber/.github/workflows/docker.yaml@main
+    uses: danilodcn/clube_saber/.github/workflows/deploy.yaml@main
     with:
       image-name: daconnas/clube_saber
       push: true

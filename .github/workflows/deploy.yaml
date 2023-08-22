@@ -38,9 +38,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: "${{ secrets.DOCKERHUB_TOKEN }}"
-      - name: Pull latest image
-        run: |
-          echo ${{ env.DOKKU_REMOTE }}
 
       - name: Build and push
         uses: docker/build-push-action@v4
