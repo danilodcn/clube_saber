@@ -18,11 +18,16 @@ on:
       environment:
         required: true
         type: string
+      environment-url:
+        required: false
+        type: string
 
 jobs:
   cd:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ vars.ENVIRONMENT_URL }}
     env:
       IMAGE_NAME: ${{ inputs.image-name }}:${{ inputs.image-tag }}
       IMAGE_NAME_BUILD_CACHE: ${{ inputs.image-name }}:buildcache
