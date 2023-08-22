@@ -45,7 +45,10 @@ class Page(models.Model):
         'Número de parcelas', null=True
     )
     image = models.ImageField(
-        'Imagem', null=True, blank=True, upload_to='upload/page'
+        'Imagem',
+        null=False,
+        blank=False,
+        upload_to='upload/page',
     )
     stamp = models.ImageField(
         'Imagem do selo', null=True, blank=True, upload_to='upload/page'
@@ -112,7 +115,7 @@ class PageSection(models.Model):
         verbose_name_plural = 'Seções das páginas'
 
     def __str__(self) -> str:
-        return f'{self.title} ({self.get_type_display()})'
+        return f'{self.title} ({self.get_type_display()})'  # type: ignore
 
 
 class PageSectionContent(models.Model):
