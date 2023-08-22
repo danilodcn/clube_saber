@@ -81,6 +81,13 @@ class Contact(models.Model):
     created_at = models.DateTimeField('Data de Criação', auto_now_add=True)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)
 
+    class Meta:
+        verbose_name = 'Contato'
+        verbose_name_plural = 'Contatos'
+
+    def __str__(self):
+        return f'{self.pk} - {self.email}'
+
 
 class PageSection(models.Model):
     class PageSectionType(models.IntegerChoices):
@@ -101,6 +108,8 @@ class PageSection(models.Model):
 
     class Meta:
         ordering = ('order', 'id')
+        verbose_name = 'Seção da página'
+        verbose_name_plural = 'Seções das páginas'
 
     def __str__(self) -> str:
         return f'{self.title} ({self.get_type_display()})'
@@ -129,3 +138,5 @@ class PageSectionContent(models.Model):
 
     class Meta:
         ordering = ('order', 'id')
+        verbose_name = 'Conteúdo da página'
+        verbose_name_plural = 'Conteúdos das páginas'

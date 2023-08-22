@@ -27,8 +27,10 @@ class PageSectionAdmin(admin.ModelAdmin):
 
 class PageModelAdmin(admin.ModelAdmin):
     readonly_fields = ('get_page_url',)
+    list_display = ('__str__', 'get_page_url')
 
     @mark_safe
+    @admin.decorators.display(description='url')
     def get_page_url(self, obj: Page):
         return '<a href="/{base}/{slug}">/{base}/{slug}</a>'.format(
             base='page', slug=obj.slug
