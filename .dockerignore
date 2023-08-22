@@ -6,6 +6,7 @@ infra
 .docker
 .pytest_cache
 .venv
+tests
 
 *.db
 .coverage
