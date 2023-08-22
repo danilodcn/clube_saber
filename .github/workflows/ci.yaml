@@ -13,4 +13,5 @@ jobs:
     with:
       image-name: daconnas/clube_saber
       push: true
+      environment: production
     secrets: inherit

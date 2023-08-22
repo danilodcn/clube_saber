@@ -15,13 +15,18 @@ on:
         required: false
         type: string
         default: ${{ github.sha }}
+      environment:
+        required: true
+        type: string
 
 jobs:
   cd:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
     env:
       IMAGE_NAME: ${{ inputs.image-name }}:${{ inputs.image-tag }}
-      IMAGE_NAME_LATEST: ${{ inputs.image-name }}:latest
+      IMAGE_NAME_BUILD_CACHE: ${{ inputs.image-name }}:buildcache
+      DOKKU_REMOTE: 'ssh://dokku@${{ vars.DOKKU_REMOTE_URL }}:22/${{ vars.DOKKU_APP_NAME }}'
 
     steps:
       - uses: actions/checkout@v2
@@ -35,14 +40,21 @@ jobs:
           password: "${{ secrets.DOCKERHUB_TOKEN }}"
       - name: Pull latest image
         run: |
-          {
-            docker pull ${{ env.IMAGE_NAME_LATEST }}
-          } || {
-            echo 'Latest image does not exists'
-          }
+          echo ${{ env.DOKKU_REMOTE }}
 
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
           push: ${{ inputs.push }}
-          tags: ${{ env.IMAGE_NAME }}, ${{ env.IMAGE_NAME_LATEST }}
+          builder: ${{ steps.buildx.outputs.name }}
+          tags: ${{ env.IMAGE_NAME }}
+          cache-from: type=registry,ref=${{ env.IMAGE_NAME_BUILD_CACHE }}
+          cache-to: type=registry,ref=${{ env.IMAGE_NAME_BUILD_CACHE }},mode=max
+
+      - name: Push to dokku
+        uses: dokku/github-action@master
+        with:
+          git_remote_url: ${{ env.DOKKU_REMOTE }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          deploy_docker_image: ${{ env.IMAGE_NAME }}
+          branch: main
