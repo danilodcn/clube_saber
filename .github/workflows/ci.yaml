@@ -12,4 +12,5 @@ jobs:
     uses: danilodcn/clube_saber/.github/workflows/docker.yaml@main
     with:
       image-name: daconnas/clube_saber
+      push: true
     secrets: inherit
