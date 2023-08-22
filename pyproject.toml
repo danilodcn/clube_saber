@@ -30,6 +30,7 @@ blue = "^0.9.1"
 ruff = "^0.0.280"
 httpx = "^0.24.1"
 pytest-django = "^4.5.2"
+factory-boy = "^3.3.0"
 
 
 [tool.poetry.group.infra.dependencies]
@@ -62,3 +63,9 @@ run = 'gunicorn clube_saber.wsgi'
 dev = 'python manage.py runserver'
 test = 'pytest --disable-warnings -s -x --cov=clube_saber -vv --ds=tests.settings'
 post_test = 'coverage html'
+
+[tool.coverage.run]
+omit = [
+    "**/tests/**",
+    "**/migrations/**",
+]
