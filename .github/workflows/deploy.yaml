@@ -41,7 +41,7 @@ jobs:
       - name: Login to docker hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: ${{ vars.DOCKERHUB_USERNAME }}
           password: "${{ secrets.DOCKERHUB_TOKEN }}"
 
       - name: Build and push
@@ -53,10 +53,26 @@ jobs:
           cache-from: type=registry,ref=${{ env.IMAGE_NAME_BUILD_CACHE }}
           cache-to: type=registry,ref=${{ env.IMAGE_NAME_BUILD_CACHE }},mode=max
 
-      - name: Push to dokku
-        uses: dokku/github-action@master
+      - name: Deploy Image to CapRover
+        # run: |
+        #   docker run caprover/cli-caprover:v2.1.1 \
+        #     caprover deploy \
+        #     --caproverUrl ${{ vars.CAPROVER_SERVER }} \
+        #     --caproverPassword ${{ secrets.CAPROVER_PASSWORD }} \
+        #     --caproverApp ${{ vars.CAPROVER_APP_NAME }} \
+        #     --imageName docker.io/${{ env.IMAGE_NAME }}
+  
+        uses: caprover/deploy-from-github@v1.1.2
         with:
-          git_remote_url: ${{ env.DOKKU_REMOTE }}
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          deploy_docker_image: ${{ env.IMAGE_NAME }}
-          branch: main
+          server: "${{ vars.CAPROVER_SERVER }}"
+          app: "${{ vars.CAPROVER_APP_NAME }}"
+          token: "${{ secrets.CAPROVER_APP_TOKEN }}"
+          image: docker.io/${{ env.IMAGE_NAME }}
+
+      # - name: Push to dokku
+      #   uses: dokku/github-action@master
+      #   with:
+      #     git_remote_url: ${{ env.DOKKU_REMOTE }}
+      #     ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     deploy_docker_image: ${{ env.IMAGE_NAME }}
+      #     branch: main
