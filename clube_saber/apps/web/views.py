@@ -2,9 +2,8 @@ from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from clube_saber.apps.web.models import Page
-
 from .forms import ContactForm
+from .models.page import Page
 
 
 def home(request: HttpRequest) -> HttpResponse:

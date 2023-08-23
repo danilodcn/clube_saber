@@ -158,9 +158,13 @@
             </div>
             <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
               <div class="w-full pt-6 text-4xl font-bold text-center">
-                R$ {{ page.price|intcomma }}
-                {% with  price=page.price|div:page.number_of_installments|floatformat:2%}
-                <span class="text-base">/ em até {{page.number_of_installments}}x R$ {{ price|intcomma }}</span>
+                {% with product=page.product %}
+
+                R$ {{ product.price|intcomma }}
+                {% with  price=product.price|div:product.number_of_installments|floatformat:2%}
+                <span class="text-base">/ em até {{product.number_of_installments}}x R$ {{ price|intcomma }}</span>
+                {% endwith %}
+
                 {% endwith %}
               </div>
               <div class="flex items-center justify-center">

@@ -1,31 +1,16 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from .site import Site
 
-class Site(models.Model):
-    logo = models.ImageField(
-        'Imagem', null=False, blank=False, upload_to='upload/site'
+
+class Product(models.Model):
+    price = models.DecimalField(
+        'Preço', decimal_places=2, max_digits=12, null=True
     )
-    name = models.CharField('Nome', max_length=250)
-
-    def __str__(self) -> str:
-        return f'{self.name}'
-
-
-class SiteSocialMedia(models.Model):
-    site = models.ForeignKey(
-        Site, models.CASCADE, related_name='social_medias'
+    number_of_installments = models.PositiveSmallIntegerField(
+        'Número de parcelas', null=True
     )
-    name = models.CharField('Nome', max_length=250)
-    icon = models.CharField('Ícone', max_length=250)
-    url = models.URLField('URL')
-
-    class Meta:
-        verbose_name = 'Mídia social'
-        verbose_name_plural = 'Mídias sociais'
-
-    def __str__(self) -> str:
-        return f'{self.name}'
 
 
 class Page(models.Model):
@@ -38,12 +23,6 @@ class Page(models.Model):
     action = models.CharField(
         'Botão de ação', max_length=500, null=True, blank=True
     )
-    price = models.DecimalField(
-        'Preço', decimal_places=2, max_digits=12, null=True
-    )
-    number_of_installments = models.PositiveSmallIntegerField(
-        'Número de parcelas', null=True
-    )
     image = models.ImageField(
         'Imagem',
         null=False,
@@ -52,6 +31,10 @@ class Page(models.Model):
     )
     stamp = models.ImageField(
         'Imagem do selo', null=True, blank=True, upload_to='upload/page'
+    )
+
+    product = models.OneToOneField(
+        Product, on_delete=models.PROTECT, null=True, blank=False
     )
 
     created_at = models.DateTimeField('Data de Criação', auto_now_add=True)
@@ -65,40 +48,13 @@ class Page(models.Model):
         return f'página: {self.title}'
 
 
-class Contact(models.Model):
-    class ReasonChoices(models.IntegerChoices):
-        UNKNOWN = 1, 'Desconhecido'
-        DOUBT = 2, 'Dúvida'
-        SUGGESTION = 3, 'Sugestão'
-        CRITICIZE = 4, 'Crítica'
-
-    page = page = models.ForeignKey(
-        Page, models.CASCADE, related_name='contacts', null=False, blank=False
-    )
-    email = models.CharField('Email', max_length=250, null=True, blank=False)
-    reason = models.PositiveSmallIntegerField(
-        'Rasão', choices=ReasonChoices.choices
-    )
-    message = models.TextField('Mensagem')
-
-    created_at = models.DateTimeField('Data de Criação', auto_now_add=True)
-    updated_at = models.DateTimeField('Atualizado em', auto_now=True)
-
-    class Meta:
-        verbose_name = 'Contato'
-        verbose_name_plural = 'Contatos'
-
-    def __str__(self):
-        return f'{self.pk} - {self.email}'
-
-
 class PageSection(models.Model):
     class PageSectionType(models.IntegerChoices):
         IMAGE = 1, 'imagem'
         TEXT = 2, 'texto'
 
     type = models.PositiveSmallIntegerField(
-        'Tipo de seção', choices=PageSectionType.choices
+        'Tipo de seção', choices=PageSectionType.choices, db_index=True
     )
     page = models.ForeignKey(
         Page, models.CASCADE, related_name='sections', null=False, blank=False
@@ -119,6 +75,10 @@ class PageSection(models.Model):
 
 
 class PageSectionContent(models.Model):
+    class PageSectionFileType(models.IntegerChoices):
+        IMAGE = 1, 'imagem'
+        VIDEO = 2, 'video'
+
     section = models.ForeignKey(
         PageSection,
         models.CASCADE,
@@ -128,13 +88,16 @@ class PageSectionContent(models.Model):
     )
     title = models.CharField('Título', max_length=500, null=True, blank=True)
     content = models.TextField('Conteúdo', null=True, blank=True)
-    image = models.ImageField(
-        'Imagem', null=True, blank=True, upload_to='upload/page/section'
+    type = models.PositiveSmallIntegerField(
+        'Tipo de conteúdo', choices=PageSectionFileType.choices, db_index=True
     )
-
+    file = models.FileField(
+        'Arquivo', null=True, blank=True, upload_to='upload/page/section'
+    )
     action = models.CharField(
         'Botão de ação', max_length=500, null=True, blank=True
     )
+    enabled = models.BooleanField('Habilitado', default=False, db_index=True)
     order = models.PositiveSmallIntegerField('ordem', null=True, db_index=True)
     created_at = models.DateTimeField('Data de Criação', auto_now_add=True)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)

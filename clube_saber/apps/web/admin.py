@@ -1,14 +1,9 @@
 from django.contrib import admin
 from django.utils.html import mark_safe  # type: ignore
 
-from .models import (
-    Contact,
-    Page,
-    PageSection,
-    PageSectionContent,
-    Site,
-    SiteSocialMedia,
-)
+from .models.contact import Contact
+from .models.page import Page, PageSection, PageSectionContent
+from .models.site import Site, SiteSocialMedia
 
 
 class PageSectionContentInlineAdmin(admin.StackedInline):
