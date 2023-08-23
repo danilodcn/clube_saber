@@ -12,4 +12,4 @@ RUN poetry config virtualenvs.create false && \
     poetry install --only main --no-root --no-cache
 COPY . .
 
-CMD [ "gunicorn", "clube_saber.wsgi" ]
+CMD [ "sh", "entrypoint.sh" ]
