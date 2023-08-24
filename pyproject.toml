@@ -19,6 +19,7 @@ boto3 = "^1.28.15"
 django-mathfilters = "^1.0.0"
 fontawesomefree = "^6.4.0"
 whitenoise = "^6.5.0"
+django-import-export = "^3.2.0"
 
 
 [tool.poetry.group.dev.dependencies]

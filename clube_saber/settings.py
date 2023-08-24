@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mathfilters',
+    'import_export',
     'fontawesomefree',
     'clube_saber.apps.web',
 ]
