@@ -1,16 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from clube_saber.apps.web.models.product import Product
+
 from .site import Site
-
-
-class Product(models.Model):
-    price = models.DecimalField(
-        'Preço', decimal_places=2, max_digits=12, null=True
-    )
-    number_of_installments = models.PositiveSmallIntegerField(
-        'Número de parcelas', null=True
-    )
 
 
 class Page(models.Model):
