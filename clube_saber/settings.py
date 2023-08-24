@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -76,11 +77,11 @@ AWS_QUERYSTRING_AUTH = False
 AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN', default='')  # type: ignore # noqa
 
 STATICFILES_LOCATION = 'static'
-
+STATIC_ROOT = BASE_DIR / STATICFILES_LOCATION
 STORAGES = {
     'default': {'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage'},
     'staticfiles': {
-        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
         'OPTIONS': {
             'location': STATICFILES_LOCATION,
             'base_url': '/static/',

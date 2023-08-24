@@ -20,3 +20,11 @@ STORAGES['default'] = {  # type: ignore # noqa
         'base_url': '/media/',
     },
 }
+
+STORAGES['staticfiles'] = {  # type: ignore # noqa
+    'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+    'OPTIONS': {
+        'location': STATICFILES_LOCATION,
+        'base_url': '/static/',
+    },
+}
