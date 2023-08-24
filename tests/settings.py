@@ -13,19 +13,10 @@ AWS_SECRET_ACCESS_KEY = 'test_aws_secret_key'
 STATICFILES_LOCATION = os.path.join(BASE_DIR, 'tests/static')   # noqa
 MEDIA_LOCATION = os.path.join(BASE_DIR, 'tests/media')   # noqa
 
-STORAGES = {
-    'default': {
-        'BACKEND': 'django.core.files.storage.FileSystemStorage',
-        'OPTIONS': {
-            'location': MEDIA_LOCATION,
-            'base_url': '/media/',
-        },
-    },
-    'staticfiles': {
-        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
-        'OPTIONS': {
-            'location': STATICFILES_LOCATION,
-            'base_url': '/static/',
-        },
+STORAGES['default'] = {  # type: ignore # noqa
+    'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    'OPTIONS': {
+        'location': MEDIA_LOCATION,
+        'base_url': '/media/',
     },
 }
