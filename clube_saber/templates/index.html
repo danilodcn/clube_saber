@@ -24,12 +24,31 @@
 
     <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
     <style>
-      .gradient {
-        background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+      .default_gradient {
+        background: {{ page.site.site_theme.gradients.primary }};
+      }
+      .button_gradient {
+        background: {{ page.site.site_theme.gradients.button }};
+      }
+
+      .primary_color {
+        color: {{ page.site.site_theme.primary_color|default:'black' }};
+      }
+
+      .hover_primary_color:hover {
+        color: {{ page.site.site_theme.primary_color|default:'black' }};
+      }
+
+      .secondary_color {
+        color: {{ page.site.site_theme.secondary_color|default:'black' }};
+      }
+
+      .hover_secondary_color:hover {
+        color: {{ page.site.site_theme.secondary_color|default:'black' }};
       }
     </style>
   </head>
-  <body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
+  <body class="leading-normal tracking-normal text-white default_gradient" style="font-family: 'Source Sans Pro', sans-serif;">
     
     <!--Nav-->
     {% include 'navigation.html' %}
@@ -107,7 +126,7 @@
           Preço
         </h2>
         <div class="w-full mb-4">
-          <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+          <div class="h-1 mx-auto default_gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
         </div>
         <div class="flex flex-col sm:flex-row justify-center pt-12 my-12 sm:my-4">
           
@@ -117,56 +136,8 @@
       </div>
     </section>
 
-    <section class="bg-gray-100 py-8">
-      <div class="container mx-auto px-2 pt-4 pb-12 text-gray-800 max-w-screen-md">
-        <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-          Entre em contato
-        </h2>
-        <div class="w-full mb-4">
-          <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
-        </div>
-        <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Tem alguma dúvida, sugestão ou crítica? entre em contato conosco</p>
-        <form class="space-y-8" action="{{ request.path }}" method="POST">
-          {% csrf_token %}
-          <div>
-            <label for="email" class="block mb-2 text-sm font-medium text-pink-700 dark:text-pink-300">Seu email</label>
-            <input
-              required
-              id="email"
-              type="email"
-              placeholder="jhondoe@site.com"
-              class="shadow-sm bg-gray-50 border border-gray-300 text-pink-700 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5"
-              >
-            </div>
-          <div>
-            <label for="option" class="block mb-2 text-sm font-medium text-pink-700 dark:text-white">Motivo</label>
-            <select
-              id="option"
-              class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-              <option selected>Escolha uma opção</option>
-              <option value="US">dúvida</option>
-              <option value="CA">sugestão</option>
-              <option value="FR">crítica</option>
-            </select>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="message" class="block mb-2 text-sm font-medium text-pink-700 dark:text-gray-400">Sua mensagem</label>
-            <textarea
-              required
-              id="message"
-              rows="6"
-              placeholder="Escreva a mensagem"
-              class="block p-2.5 w-full text-sm text-pink-700 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            ></textarea>
-          </div>
-
-          <button type="submit" class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-            Enviar
-          </button>
-        </form>
-      </div>
-    </section>
+    {% include 'forms/lead_contact.html' with form_action=request.path %}
+    
     <!-- Change the colour #f8fafc to match the previous section colour -->
     <svg class="wave-top" viewBox="0 0 1439 147" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -211,7 +182,7 @@
       <div class="container mx-auto px-8">
         <div class="w-full flex flex-col md:flex-row py-6">
           <div class="flex-1 mb-6 text-black">
-            <a class="text-pink-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
+            <a class="primary_color no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
               <img class="h-12 fill-current inline" src="{{ page.site.logo.url }}"/>
               {{ page.site.name }}
             </a>
@@ -222,7 +193,7 @@
               {%for social_link in page.site.social_medias.all%}
               <li class="mt-2 inline-block mr-2 md:block md:mr-0">
                 <a 
-                  class="no-underline hover:underline text-gray-800 hover:text-pink-500"
+                  class="no-underline hover:underline text-gray-800 hover_primary_color"
                   href="{{ social_link.url }}"
                   target="_blank"
                 >
