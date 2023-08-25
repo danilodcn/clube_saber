@@ -93,7 +93,9 @@ AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN', default='')  # type: ignore #
 STATICFILES_LOCATION = 'static'
 STATIC_ROOT = BASE_DIR / STATICFILES_LOCATION
 STORAGES = {
-    'default': {'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage'},
+    'default': {
+        'BACKEND': 'clube_saber.storages.WhiteNoiseStaticFilesStorage'
+    },
     'staticfiles': {
         'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
         'OPTIONS': {
