@@ -11,6 +11,7 @@ class Page(models.Model):
     site = models.ForeignKey(
         Site, models.CASCADE, related_name='pages', null=True
     )
+    enabled = models.BooleanField('Habilitado', default=True, db_index=True)
     title = models.CharField('Título', max_length=500, null=True, blank=True)
     subtitle = models.TextField('Subtítulo', null=True, blank=True)
     action = models.CharField(
@@ -49,6 +50,7 @@ class PageSection(models.Model):
     type = models.PositiveSmallIntegerField(
         'Tipo de seção', choices=PageSectionType.choices, db_index=True
     )
+    enabled = models.BooleanField('Habilitado', default=True, db_index=True)
     page = models.ForeignKey(
         Page, models.CASCADE, related_name='sections', null=False, blank=False
     )
@@ -68,9 +70,9 @@ class PageSection(models.Model):
 
 
 class PageSectionContent(models.Model):
-    class PageSectionFileType(models.IntegerChoices):
-        IMAGE = 1, 'imagem'
-        VIDEO = 2, 'video'
+    class PageSectionFileType(models.TextChoices):
+        IMAGE = 'IMAGE', 'imagem'
+        VIDEO = 'VIDEO', 'video'
 
     section = models.ForeignKey(
         PageSection,
@@ -81,8 +83,11 @@ class PageSectionContent(models.Model):
     )
     title = models.CharField('Título', max_length=500, null=True, blank=True)
     content = models.TextField('Conteúdo', null=True, blank=True)
-    type = models.PositiveSmallIntegerField(
-        'Tipo de conteúdo', choices=PageSectionFileType.choices, db_index=True
+    type = models.CharField(
+        'Tipo de conteúdo',
+        choices=PageSectionFileType.choices,
+        max_length=20,
+        db_index=True,
     )
     file = models.FileField(
         'Arquivo', null=True, blank=True, upload_to='upload/page/section'

@@ -73,9 +73,7 @@ class Site(models.Model):
         'Imagem', null=False, blank=False, upload_to='upload/site'
     )
     name = models.CharField('Nome', max_length=250)
-    enabled = models.BooleanField(
-        'Habilitado', null=True, blank=True, db_index=True
-    )
+    enabled = models.BooleanField('Habilitado', default=True, db_index=True)
     site_theme = models.ForeignKey(
         SiteTheme, models.CASCADE, related_name='site'
     )
@@ -94,9 +92,7 @@ class SiteSocialMedia(models.Model):
     name = models.CharField('Nome', max_length=250)
     icon = models.CharField('Ícone', max_length=250)
     url = models.URLField('URL')
-    enabled = models.BooleanField(
-        'Habilitado', null=True, blank=False, db_index=True
-    )
+    enabled = models.BooleanField('Habilitado', default=True, db_index=True)
 
     created_at = models.DateTimeField('Data de Criação', auto_now_add=True)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)

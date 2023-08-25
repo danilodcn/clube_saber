@@ -11,7 +11,7 @@ def home(request: HttpRequest) -> HttpResponse:
 
 
 def landing_page(request: HttpRequest, slug: str) -> HttpResponse:
-    page = get_object_or_404(Page, slug=slug)
+    page = get_object_or_404(Page, slug=slug, enabled=True)
 
     if request.method == 'POST':
         data = request.POST.copy()
