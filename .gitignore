@@ -1,6 +1,6 @@
+media
 *.xlsx
 
-src/*.json
 docker/data
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -8,7 +8,6 @@ __pycache__/
 *$py.class
 .docker/
 static/
-src/*.pdf
 
 # C extensions
 *.so

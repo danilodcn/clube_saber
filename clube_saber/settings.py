@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mathfilters',
+    'colorfield',
     'import_export',
     'fontawesomefree',
     'clube_saber.apps.web',
@@ -89,6 +90,17 @@ STORAGES = {
         },
     },
 }
+
+if DEBUG:
+    MEDIA_ROOT = 'media/'
+    MEDIA_URL = '/media/'
+    STORAGES['default'] = {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+        'OPTIONS': {
+            'location': 'media',
+            'base_url': '/media/',
+        },
+    }
 
 WSGI_APPLICATION = 'clube_saber.wsgi.application'
 
