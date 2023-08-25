@@ -12,8 +12,6 @@ RUN poetry config virtualenvs.create false && \
     poetry install --only main --no-root --no-cache
 COPY . .
 
-EXPOSE 8000
-
 RUN mkdir -p static
 
 CMD [ "sh", "entrypoint.sh" ]
