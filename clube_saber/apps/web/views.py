@@ -14,9 +14,11 @@ def landing_page(request: HttpRequest, slug: str) -> HttpResponse:
     page = get_object_or_404(Page, slug=slug)
 
     if request.method == 'POST':
-        form = ContactForm({**request.POST, 'page': page.pk})
+        data = request.POST.copy()
+        data['page'] = page.pk
+        form = ContactForm(data)
         if not form.is_valid():
-            message = ''
+            message = 'Houve um erro ao salvar o contato'
         else:
             form.save()
             message = 'Em breve entraremos em contato'
