@@ -2,7 +2,9 @@ import os
 from pathlib import Path
 
 import environ
+import sentry_sdk
 from django.utils.translation import gettext_lazy as _
+from sentry_sdk.integrations.django import DjangoIntegration
 
 env = environ.Env(DEBUG=(bool, False))
 
@@ -69,6 +71,16 @@ TEMPLATES = [
     },
 ]
 
+SENTRY_DNS: str = env('SENTRY_DNS', default='')  # type: ignore
+
+if SENTRY_DNS:
+    sentry_sdk.init(
+        dsn=SENTRY_DNS,
+        integrations=[DjangoIntegration()],
+        send_default_pii=True,
+        traces_sample_rate=1.0,
+        profiles_sample_rate=1.0,
+    )
 
 AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME', default='bucket')  # type: ignore # noqa
 
@@ -103,6 +115,48 @@ if DEBUG:
     }
 
 WSGI_APPLICATION = 'clube_saber.wsgi.application'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(asctime)s %(levelname)s [%(name)s:%(lineno)s] %(module)s %(process)d %(thread)d %(message)s'  # noqa
+        }
+    },
+    'handlers': {
+        'gunicorn': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'verbose',
+            'filename': 'gunicorn.errors.log',
+            'maxBytes': 1024 * 1024 * 20,  # 100 mb
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'gunicorn.errors': {
+            'level': 'DEBUG',
+            'handlers': ['gunicorn'],
+            'propagate': True,
+        },
+        '': {
+            'handlers': ['gunicorn'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['gunicorn'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
+
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
