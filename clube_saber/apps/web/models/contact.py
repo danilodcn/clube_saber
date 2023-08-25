@@ -4,11 +4,11 @@ from .page import Page
 
 
 class Contact(models.Model):
-    class ReasonChoices(models.IntegerChoices):
-        UNKNOWN = 1, 'Desconhecido'
-        DOUBT = 2, 'Dúvida'
-        SUGGESTION = 3, 'Sugestão'
-        CRITICIZE = 4, 'Crítica'
+    class ReasonChoices(models.TextChoices):
+        UNKNOWN = 'UNKNOWN', 'Desconhecido'
+        DOUBT = 'DOUBT', 'Dúvida'
+        SUGGESTION = 'SUGGESTION', 'Sugestão'
+        CRITICIZE = 'CRITICIZE', 'Crítica'
 
     page = page = models.ForeignKey(
         Page, models.CASCADE, related_name='contacts', null=False, blank=False
@@ -16,8 +16,8 @@ class Contact(models.Model):
     email = models.CharField(
         'Email', max_length=250, null=True, blank=False, db_index=True
     )
-    reason = models.PositiveSmallIntegerField(
-        'Rasão', choices=ReasonChoices.choices, db_index=True
+    reason = models.CharField(
+        'Rasão', choices=ReasonChoices.choices, max_length=20, db_index=True
     )
     message = models.TextField('Mensagem')
 
