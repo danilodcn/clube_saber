@@ -4,12 +4,6 @@ import factory
 
 from clube_saber.apps.web.models.page import Page, Product
 from clube_saber.apps.web.models.product import ProductTag
-from clube_saber.apps.web.models.site import Site
-
-
-class SiteFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = Site
 
 
 class ProductTagFactory(factory.django.DjangoModelFactory):

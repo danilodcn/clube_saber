@@ -3,7 +3,7 @@ from django.test import SimpleTestCase
 
 from clube_saber.apps.web.models.page import Page
 
-from .factories import PageFactory
+from .factories.product_factories import PageFactory
 
 
 class TestCreateContact(SimpleTestCase):
