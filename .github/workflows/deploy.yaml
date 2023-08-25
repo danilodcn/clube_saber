@@ -53,18 +53,18 @@ jobs:
           cache-from: type=registry,ref=${{ env.IMAGE_NAME_BUILD_CACHE }}
           cache-to: type=registry,ref=${{ env.IMAGE_NAME_BUILD_CACHE }},mode=max
 
-      - name: Deploy Image to CapRover
-        uses: caprover/deploy-from-github@v1.1.2
-        with:
-          server: "${{ vars.CAPROVER_SERVER }}"
-          app: "${{ vars.CAPROVER_APP_NAME }}"
-          token: "${{ secrets.CAPROVER_APP_TOKEN }}"
-          image: docker.io/${{ env.IMAGE_NAME }}
-
-      # - name: Push to dokku
-      #   uses: dokku/github-action@master
+      # - name: Deploy Image to CapRover
+      #   uses: caprover/deploy-from-github@v1.1.2
       #   with:
-      #     git_remote_url: ${{ env.DOKKU_REMOTE }}
-      #     ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     deploy_docker_image: ${{ env.IMAGE_NAME }}
-      #     branch: main
+      #     server: "${{ vars.CAPROVER_SERVER }}"
+      #     app: "${{ vars.CAPROVER_APP_NAME }}"
+      #     token: "${{ secrets.CAPROVER_APP_TOKEN }}"
+      #     image: docker.io/${{ env.IMAGE_NAME }}
+
+      - name: Push to dokku
+        uses: dokku/github-action@master
+        with:
+          git_remote_url: ${{ env.DOKKU_REMOTE }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          deploy_docker_image: ${{ env.IMAGE_NAME }}
+          branch: main
