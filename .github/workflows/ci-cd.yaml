@@ -9,8 +9,6 @@ jobs:
     uses: danilodcn/clube_saber/.github/workflows/poetry.yaml@main
 
   build:
-    needs:
-      - tests
 
     uses: danilodcn/clube_saber/.github/workflows/deploy.yaml@main
     with:
