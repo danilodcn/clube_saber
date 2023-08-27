@@ -1,10 +1,5 @@
 # from django.conf import settings
 from storages.backends.s3boto3 import S3Boto3Storage
-from whitenoise.storage import CompressedManifestStaticFilesStorage
-
-
-class WhiteNoiseStaticFilesStorage(CompressedManifestStaticFilesStorage):
-    manifest_strict = False
 
 
 class ProtectedStorage(S3Boto3Storage):
