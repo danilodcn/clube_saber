@@ -95,7 +95,7 @@ STATIC_ROOT = BASE_DIR / STATICFILES_LOCATION
 STORAGES = {
     'default': {'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage'},
     'staticfiles': {
-        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        'BACKEND': 'clube_saber.storage.WhiteNoiseStaticFilesStorage',
         'OPTIONS': {
             'location': STATICFILES_LOCATION,
             'base_url': '/static/',
