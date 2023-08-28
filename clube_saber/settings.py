@@ -27,7 +27,9 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-INSTALLED_APPS = [
+SHARED_APPS = [
+    'django_tenants',
+    'clube_saber.apps.tenant',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,10 +41,22 @@ INSTALLED_APPS = [
     'colorfield',
     'import_export',
     'fontawesomefree',
-    'clube_saber.apps.web',
 ]
 
+SHOW_PUBLIC_IF_NO_TENANT_FOUND = True
+
+TENANT_APPS = [
+    'clube_saber.apps.web',
+    'clube_saber.apps.product',
+]
+
+TENANT_MODEL = 'tenant.Client'
+TENANT_DOMAIN_MODEL = 'tenant.Domain'
+
+INSTALLED_APPS = SHARED_APPS + TENANT_APPS
+
 MIDDLEWARE = [
+    'django_tenants.middleware.main.TenantMainMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -92,7 +106,7 @@ AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN', default='')  # type: ignore #
 
 STATICFILES_LOCATION = 'static'
 STORAGES = {
-    'default': {'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage'},
+    'default': {'BACKEND': 'clube_saber.apps.tenant.storage.TenantS3Storage'},
     'staticfiles': {
         'BACKEND': 'storages.backends.s3boto3.S3StaticStorage',
         'OPTIONS': {
@@ -163,6 +177,9 @@ DATABASES = {
     'default': env.db(default='sqlite:///:memory:'),  # type: ignore
 }
 
+DATABASES['default']['ENGINE'] = 'django_tenants.postgresql_backend'
+
+DATABASE_ROUTERS = ('django_tenants.routers.TenantSyncRouter',)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
