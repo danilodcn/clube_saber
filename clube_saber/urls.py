@@ -11,7 +11,3 @@ if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
     )
-
-admin.site.site_header = 'Administração Clube Saber'
-admin.site.index_title = ''
-admin.site.site_title = 'clube saber'
