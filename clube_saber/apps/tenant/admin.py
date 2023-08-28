@@ -1,21 +1,23 @@
 from django.contrib import admin
 from django_tenants.admin import TenantAdminMixin
 
-from .models import Client
+from .models import Tenant
 
 
-@admin.register(Client)
+@admin.register(Tenant)
 class ClientAdmin(TenantAdminMixin, admin.ModelAdmin):
     list_display = ('name', 'created_at')
 
 
 def each_context(request):
-    from clube_saber.apps.tenant.models import Client
 
     context = admin.sites.AdminSite.each_context(admin.site, request)
-    tenant: Client = request.tenant
-    context['site_header'] = f'Administração {tenant.name}'
-    context['site_title'] = f'{tenant.name}'
+    try:
+        tenant: Tenant = request.tenant
+        context['site_header'] = f'Administração {tenant.name}'
+        context['site_title'] = f'{tenant.name}'
+    except Exception:
+        ...
     return context
 
 

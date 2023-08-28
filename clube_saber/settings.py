@@ -50,7 +50,7 @@ TENANT_APPS = [
     'clube_saber.apps.product',
 ]
 
-TENANT_MODEL = 'tenant.Client'
+TENANT_MODEL = 'tenant.Tenant'
 TENANT_DOMAIN_MODEL = 'tenant.Domain'
 
 INSTALLED_APPS = SHARED_APPS + TENANT_APPS
@@ -128,46 +128,46 @@ if DEBUG:
 
 WSGI_APPLICATION = 'clube_saber.wsgi.application'
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-    'formatters': {
-        'verbose': {
-            'format': '%(asctime)s %(levelname)s [%(name)s:%(lineno)s] %(module)s %(process)d %(thread)d %(message)s'  # noqa
-        }
-    },
-    'handlers': {
-        'gunicorn': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'formatter': 'verbose',
-            'filename': 'gunicorn.errors.log',
-            'maxBytes': 1024 * 1024 * 20,  # 100 mb
-        },
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose',
-        },
-    },
-    'loggers': {
-        'gunicorn.errors': {
-            'level': 'DEBUG',
-            'handlers': ['gunicorn'],
-            'propagate': True,
-        },
-        '': {
-            'handlers': ['gunicorn'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-        'django': {
-            'handlers': ['gunicorn'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': True,
+#     'formatters': {
+#         'verbose': {
+#             'format': '%(asctime)s %(levelname)s [%(name)s:%(lineno)s] %(module)s %(process)d %(thread)d %(message)s'  # noqa
+#         }
+#     },
+#     'handlers': {
+#         'gunicorn': {
+#             'level': 'DEBUG',
+#             'class': 'logging.handlers.RotatingFileHandler',
+#             'formatter': 'verbose',
+#             'filename': 'gunicorn.errors.log',
+#             'maxBytes': 1024 * 1024 * 20,  # 100 mb
+#         },
+#         'console': {
+#             'level': 'INFO',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'verbose',
+#         },
+#     },
+#     'loggers': {
+#         'gunicorn.errors': {
+#             'level': 'DEBUG',
+#             'handlers': ['gunicorn'],
+#             'propagate': True,
+#         },
+#         '': {
+#             'handlers': ['gunicorn'],
+#             'level': 'INFO',
+#             'propagate': True,
+#         },
+#         'django': {
+#             'handlers': ['gunicorn'],
+#             'level': 'INFO',
+#             'propagate': False,
+#         },
+#     },
+# }
 
 
 # Database
