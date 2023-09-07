@@ -6,15 +6,15 @@ on:
 
 jobs:
   tests:
-    uses: danilodcn/clube_saber/.github/workflows/poetry.yaml@main
+    uses: danilodcn/explorer2go/.github/workflows/poetry.yaml@main
 
   build:
     needs:
       - tests
 
-    uses: danilodcn/clube_saber/.github/workflows/deploy.yaml@main
+    uses: danilodcn/explorer2go/.github/workflows/deploy.yaml@main
     with:
-      image-name: daconnas/clube_saber
+      image-name: daconnas/explorer2go
       push: true
       environment: production
     secrets: inherit

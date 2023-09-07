@@ -1,6 +1,6 @@
 import factory
 
-from clube_saber.settings import *  # noqa
+from explorer2go.settings import *  # noqa
 
 factory.Faker._DEFAULT_LOCALE = 'pt_BR'
 

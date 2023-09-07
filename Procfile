@@ -1,1 +1,1 @@
-web: gunicorn clube_saber.wsgi
+web: gunicorn explorer2go.wsgi
