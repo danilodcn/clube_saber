@@ -1,1 +1,1 @@
-web: gunicorn explorer2go.wsgi
+web: gunicorn
