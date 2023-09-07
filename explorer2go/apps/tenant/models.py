@@ -1,6 +1,6 @@
+from django.conf import settings
 from django.db import models
 from django_tenants.models import DomainMixin, TenantMixin
-from django.conf import settings
 
 
 class Tenant(TenantMixin):
@@ -9,9 +9,9 @@ class Tenant(TenantMixin):
     manager = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         models.PROTECT,
-        verbose_name="Gerente",
+        verbose_name='Gerente',
         null=True,
-        blank=False
+        blank=False,
     )
     created_at = models.DateTimeField('Data de Criação', auto_now_add=True)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)

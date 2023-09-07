@@ -1,14 +1,14 @@
 wsgi_app = 'explorer2go.wsgi:application'
-access_log_format = '%(h)s %(p)-6s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s %(M)s "%(f)s" "%(a)s"' # noqa
+access_log_format = '%(h)s %(p)-6s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s %(M)s "%(f)s" "%(a)s"'   # noqa
 
 
-loglevel = "info"
+loglevel = 'info'
 capture_output = False
 
 # workers = 4
 worker_class = 'gevent'
 
-bind = "0.0.0.0:8000"
+bind = '0.0.0.0:8000'
 
-accesslog = "-"
-errorlog = "-"
+accesslog = '-'
+errorlog = '-'

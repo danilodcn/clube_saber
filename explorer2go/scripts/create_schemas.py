@@ -1,6 +1,6 @@
-from explorer2go.apps.tenant.models import Domain, Tenant
 from django.contrib.auth.models import User
 
+from explorer2go.apps.tenant.models import Domain, Tenant
 
 User.objects.create_superuser(  # type: ignore
     username='test', password='123', email='test@test.com'
