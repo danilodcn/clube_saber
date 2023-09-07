@@ -1,4 +1,4 @@
-from clube_saber.apps.tenant.models import Tenant, Domain
+from clube_saber.apps.tenant.models import Domain, Tenant
 
 TENANTS = [
     ('clubesaber.com', 'clube_saber', 'Clube Saber'),
