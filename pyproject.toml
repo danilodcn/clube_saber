@@ -67,8 +67,9 @@ extend-exclude = '(migrations/)'
 [tool.taskipy.tasks]
 lint = 'ruff . && blue --check . --diff'
 format = 'blue .  && isort .'
-run = 'gunicorn clube_saber.wsgi'
-dev = 'python manage.py runserver'
+run = 'gunicorn'
+dev = 'gunicorn --reload'
+migrate = 'python manage.py migrate_schemas'
 test = 'pytest --disable-warnings -s -x --cov=clube_saber -vv --ds=tests.settings'
 post_test = 'coverage html'
 
