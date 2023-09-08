@@ -1,12 +1,19 @@
 from django.contrib import admin
-from django_tenants.admin import TenantAdminMixin
 
-from .models import Tenant
+from .models import Domain, Tenant
+
+# from django_tenants.admin import TenantAdminMixin
+
+
+class DomainInlineAdmin(admin.TabularInline):
+    model = Domain
+    extra = 0
 
 
 @admin.register(Tenant)
-class ClientAdmin(TenantAdminMixin, admin.ModelAdmin):
+class TenantAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_at')
+    inlines = (DomainInlineAdmin,)
 
 
 def each_context(request):
