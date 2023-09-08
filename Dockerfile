@@ -13,5 +13,6 @@ RUN poetry config virtualenvs.create false && \
 COPY . .
 
 RUN mkdir -p static
+EXPOSE 8000
 
 CMD [ "sh", "entrypoint.sh" ]
