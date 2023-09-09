@@ -7,8 +7,7 @@ loglevel = 'info'
 capture_output = False
 
 workers = int(max(cpu_count() / 2, 1))
-worker_class = 'gevent'
-worker_connections = 200
+threads = 4
 
 bind = '0.0.0.0:8000'
 
