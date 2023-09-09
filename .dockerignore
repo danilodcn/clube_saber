@@ -1,13 +1,18 @@
 infra
 .github
+.git
 .ruff_cache
 .tests
 .vscode
 .docker
 .pytest_cache
 .venv
+.env
 tests
+media
+static
+htmlcov
 
+docker_compose.yaml
 *.db
 .coverage
-htmlcov

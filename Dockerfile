@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN apk update --no-cache && apk add --no-cache build-base postgresql-dev musl-dev
 
-RUN pip install --no-cache -U pip poetry psycopg2-binary
+RUN pip install --no-cache -U pip poetry psycopg2-binary --no-cache
 
 COPY pyproject.toml poetry.lock /app/
 
