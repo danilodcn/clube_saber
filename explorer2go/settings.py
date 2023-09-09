@@ -38,6 +38,7 @@ SHARED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mathfilters',
+    'debug_toolbar',
     'colorfield',
     'import_export',
     'fontawesomefree',
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -123,6 +125,14 @@ if DEBUG:
         'OPTIONS': {
             'location': 'media',
             'base_url': '/media/',
+        },
+    }
+
+    STORAGES['staticfiles'] = {
+        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+        'OPTIONS': {
+            'location': 'static',
+            'base_url': '/static/',
         },
     }
 
@@ -192,3 +202,11 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*.clubesaber.store/',
     'http://*.clubesaber.store/',
 ]
+
+INTERNAL_IPS = ['127.0.0.1', '10.0.2.2']
+
+if DEBUG:
+    import socket  # only if you haven't already imported this
+
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS += [ip[: ip.rfind('.')] + '.1' for ip in ips]
