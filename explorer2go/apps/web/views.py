@@ -25,6 +25,5 @@ def landing_page(request: HttpRequest, slug: str) -> HttpResponse:
 
         messages.error(request=request, message=message)
 
-    return render(
-        request=request, template_name='index.html', context={'page': page}
-    )
+    context = {'page': page}
+    return render(request=request, template_name='index.html', context=context)
