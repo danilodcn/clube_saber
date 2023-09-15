@@ -46,15 +46,15 @@ class Page(models.Model):
 
 class PageSection(models.Model):
     class PageSectionType(models.IntegerChoices):
-        IMAGE = 1, 'imagem'
-        TEXT = 2, 'texto'
+        IMAGE = 1, 'foco na mídia'
+        TEXT = 2, 'foco no conteúdo'
 
     type = models.PositiveSmallIntegerField(
         'Tipo de seção', choices=PageSectionType.choices, db_index=True
     )
     enabled = models.BooleanField('Habilitado', default=True, db_index=True)
     page = models.ForeignKey(
-        Page, models.CASCADE, related_name='sections', null=False, blank=False
+        Page, models.CASCADE, verbose_name='Página', related_name='sections', null=False, blank=False
     )
     title = models.CharField('Título', max_length=500, null=True, blank=True)
     order = models.PositiveSmallIntegerField('ordem', null=True, db_index=True)
