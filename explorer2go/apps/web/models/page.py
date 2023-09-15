@@ -26,7 +26,9 @@ class Page(models.Model):
     stamp = models.ImageField(
         'Imagem do selo', null=True, blank=True, upload_to='upload/page'
     )
-
+    guarantee_of_satisfaction = models.TextField(
+        "Texto de garantia de satisfação", null=True, blank=True
+    )
     product = models.OneToOneField(
         Product, on_delete=models.PROTECT, null=True, blank=False
     )
