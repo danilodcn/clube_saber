@@ -13,8 +13,11 @@ class Contact(models.Model):
     page = page = models.ForeignKey(
         Page, models.CASCADE, related_name='contacts', null=False, blank=False
     )
+    full_name = models.CharField(
+        'Nome completo', max_length=255, null=True, blank=False
+    )
     email = models.CharField(
-        'Email', max_length=250, null=True, blank=False, db_index=True
+        'Email', max_length=255, null=True, blank=False, db_index=True
     )
     reason = models.CharField(
         'Rasão', choices=ReasonChoices.choices, max_length=20, db_index=True
@@ -29,4 +32,4 @@ class Contact(models.Model):
         verbose_name_plural = 'Contatos'
 
     def __str__(self):
-        return f'{self.pk} - {self.email}'
+        return f'{self.pk} - {self.full_name} <{self.email}>'

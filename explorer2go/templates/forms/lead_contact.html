@@ -10,6 +10,17 @@
       <form class="space-y-8" action="{{ form_action }}" method="POST">
         {% csrf_token %}
         <div>
+          <label for="full_name" class="block mb-2 text-sm font-medium primary_color">Seu nome</label>
+          <input
+            required
+            id="full_name"
+            type="full_name"
+            name="full_name"
+            placeholder="Jhon Doe"
+            class="shadow-sm bg-gray-50 border border-gray-300 primary_color text-sm rounded-lg focus:border-blue-500 block w-full p-2.5"
+            >
+        </div>
+        <div>
           <label for="email" class="block mb-2 text-sm font-medium primary_color">Seu email</label>
           <input
             required
@@ -19,7 +30,7 @@
             placeholder="jhondoe@site.com"
             class="shadow-sm bg-gray-50 border border-gray-300 primary_color text-sm rounded-lg focus:border-blue-500 block w-full p-2.5"
             >
-          </div>
+        </div>
         <div>
           <label
             id="reason" 
