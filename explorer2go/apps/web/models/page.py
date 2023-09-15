@@ -27,7 +27,7 @@ class Page(models.Model):
         'Imagem do selo', null=True, blank=True, upload_to='upload/page'
     )
     guarantee_of_satisfaction = models.TextField(
-        "Texto de garantia de satisfação", null=True, blank=True
+        'Texto de garantia de satisfação', null=True, blank=True
     )
     product = models.OneToOneField(
         Product, on_delete=models.PROTECT, null=True, blank=False
@@ -54,7 +54,12 @@ class PageSection(models.Model):
     )
     enabled = models.BooleanField('Habilitado', default=True, db_index=True)
     page = models.ForeignKey(
-        Page, models.CASCADE, verbose_name='Página', related_name='sections', null=False, blank=False
+        Page,
+        models.CASCADE,
+        verbose_name='Página',
+        related_name='sections',
+        null=False,
+        blank=False,
     )
     title = models.CharField('Título', max_length=500, null=True, blank=True)
     order = models.PositiveSmallIntegerField('ordem', null=True, db_index=True)
