@@ -16,7 +16,7 @@
     </p>
   </div>
   <div class="w-full sm:w-1/2 p-6">
-    <img class="sm:h-72 mx-auto" src="{{ content.file.url }}"/>
+    {% include 'cards/file_view.html' with file_url=content.file.url %}
   </div>
 </div>
 
@@ -24,7 +24,7 @@
 
 <div class="flex flex-wrap flex-col-reverse sm:flex-row">
   <div class="w-full sm:w-1/2 p-6 mt-6">
-    <img class="sm:h-72 mx-auto" src="{{ content.file.url }}"/>
+    {% include 'cards/file_view.html' with file_url=content.file.url %}
   </div>
   <div class="w-full sm:w-1/2 p-6 mt-6">
     <div class="align-middle">
