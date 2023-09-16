@@ -77,10 +77,6 @@ class PageSection(models.Model):
 
 
 class PageSectionContent(models.Model):
-    class PageSectionFileType(models.TextChoices):
-        IMAGE = 'IMAGE', 'imagem'
-        VIDEO = 'VIDEO', 'video'
-
     section = models.ForeignKey(
         PageSection,
         models.CASCADE,
@@ -90,15 +86,8 @@ class PageSectionContent(models.Model):
     )
     title = models.CharField('Título', max_length=500, null=True, blank=True)
     content = models.TextField('Conteúdo', null=True, blank=True)
-    type = models.CharField(
-        'Tipo de conteúdo',
-        choices=PageSectionFileType.choices,
-        max_length=20,
-        db_index=True,
-    )
-    file = models.FileField(
-        'Arquivo', null=True, blank=True, upload_to='upload/page/section'
-    )
+
+    file = models.FileField('Arquivo', upload_to='upload/page/section')
     action = models.CharField(
         'Botão de ação', max_length=500, null=True, blank=True
     )
