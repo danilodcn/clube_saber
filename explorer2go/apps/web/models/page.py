@@ -1,3 +1,4 @@
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -5,9 +6,34 @@ from explorer2go.apps.web.models.product import Product
 
 from .site import Site
 
+IMAGE_ACCEPT_EXTENSIONS = (
+    'png',
+    'jpeg',
+    'gif',
+    'jpg',
+    'webp',
+    'ico',
+    'svg',
+)
+
+VIDEO_ACCEPT_EXTENSIONS = ('mp4', 'mov', 'wmv', 'webm')
+
+MEDIA_ACCEPT_EXTENSIONS = *IMAGE_ACCEPT_EXTENSIONS, *VIDEO_ACCEPT_EXTENSIONS
+
+FILE_ACCEPT_EXTENSIONS = (
+    *MEDIA_ACCEPT_EXTENSIONS,
+    'pdf',
+    'xlsx',
+    'xls',
+    'json',
+    'txt',
+)
+
 
 class Page(models.Model):
-    slug = models.SlugField(_('Slug'), max_length=500, db_index=True)
+    slug = models.SlugField(
+        _('Slug'), max_length=500, db_index=True, unique=True
+    )
     site = models.ForeignKey(
         Site, models.CASCADE, related_name='pages', null=True
     )
@@ -17,19 +43,28 @@ class Page(models.Model):
     action = models.CharField(
         'Botão de ação', max_length=500, null=True, blank=True
     )
-    image = models.ImageField(
-        'Imagem',
-        null=False,
-        blank=False,
+    header_file = models.FileField(
+        'Arquivo do header',
         upload_to='upload/page',
+        validators=(
+            FileExtensionValidator(
+                allowed_extensions=MEDIA_ACCEPT_EXTENSIONS,
+            ),
+        ),
     )
-    stamp = models.ImageField(
-        'Imagem do selo', null=True, blank=True, upload_to='upload/page'
+    stamp_file = models.FileField(
+        'Arquivo do selo',
+        upload_to='upload/page',
+        validators=(
+            FileExtensionValidator(
+                allowed_extensions=IMAGE_ACCEPT_EXTENSIONS,
+            ),
+        ),
     )
     guarantee_of_satisfaction = models.TextField(
         'Texto de garantia de satisfação', null=True, blank=True
     )
-    product = models.OneToOneField(
+    product = models.ForeignKey(
         Product, on_delete=models.PROTECT, null=True, blank=False
     )
 
@@ -87,7 +122,15 @@ class PageSectionContent(models.Model):
     title = models.CharField('Título', max_length=500, null=True, blank=True)
     content = models.TextField('Conteúdo', null=True, blank=True)
 
-    file = models.FileField('Arquivo', upload_to='upload/page/section')
+    file = models.FileField(
+        'Arquivo',
+        upload_to='upload/page/section',
+        validators=(
+            FileExtensionValidator(
+                allowed_extensions=FILE_ACCEPT_EXTENSIONS,
+            ),
+        ),
+    )
     action = models.CharField(
         'Botão de ação', max_length=500, null=True, blank=True
     )

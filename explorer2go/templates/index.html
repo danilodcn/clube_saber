@@ -1,4 +1,6 @@
 {% load static %}
+{% load file_types  %}
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -83,7 +85,21 @@
         </div>
         <!--Right Col-->
         <div class="w-full md:w-3/5 py-6 text-center">
-          <img class="w-full md:w-4/5 z-50" src="{{ page.image.url }}"/>
+
+          {% with file_type=page.header_file.url|mimetype %}
+
+          {% if 'image' in file_type %}
+          <img class="w-full md:w-4/5 z-50" src="{{ page.header_file.url }}" />
+
+          {% elif 'video' in file_type %}
+
+          <video class="w-full md:w-4/5 z-50" src="{{ page.header_file.url }}" controls muted loop autoplay/>
+
+          {% endif %}
+
+          {% endwith   %}
+
+          {% comment %} <img class="w-full md:w-4/5 z-50" src="{{ page.header_file.url }}"/> {% endcomment %}
         </div>
       </div>
     </div>
@@ -178,19 +194,22 @@
     </svg>
     <section class="container mx-auto text-center py-6 mb-12" id="call-to-action">
       <div class="w-full md:w-3/5 py-6 mx-auto text-center">
-        <img class="w-full md:w-4/5 object-contain h-48 md:h-96 w-96 mx-auto z-50" src="{{ page.stamp.url }}"/>
+        <img
+          class="w-full md:w-4/5 object-contain h-48 md:h-96 w-96 mx-auto z-50"
+          src="{{ page.stamp_file.url }}"
+        />
       </div>
       <div class="w-full mb-4">
         <div class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
       </div>
       <h3 class="my-10 text-3xl leading-tight">
-        {{ page.guarantee_of_satisfaction }}
+        {{ page.guarantee_of_satisfaction|default:'' }}
       </h3>
       <a
         class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
         href="{{ page.action|default_if_none:'#' }}"
       >
-        Comprar!
+        Comprar
       </a>
     </section>
     <!--Footer-->
